@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- jackson 方案 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="serializationInclusion" value="NON_NULL"/>
+                    </bean>
+                </property>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/pile/*"/>-->
+            <!--&lt;!&ndash;<mvc:mapping path="/pile"/>&ndash;&gt;-->
+            <!--<mvc:mapping path="/key"/>-->
+            <!--<mvc:mapping path="/order/*"/>-->
+            <!--<mvc:mapping path="/order"/>-->
+            <!--<mvc:mapping path="/user/*"/>-->
+            <!--<mvc:mapping path="/push/*"/>-->
+            <!--<mvc:mapping path="/moment/*"/>-->
+            <!--<mvc:mapping path="/thirds/*"/>-->
+            <!--<mvc:mapping path="/report/*"/>-->
+            <!--<mvc:mapping path="/moment/*"/>-->
+            <!--<mvc:mapping path="/app/whitelist/*"/>-->
+            <!--<mvc:mapping path="/app/**" />-->
+            <!--<bean class="com.xpg.common.auth.AuthInterceptor"></bean>-->
+        <!--</mvc:interceptor>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/cgi-bin/user/**"/>-->
+            <!--<mvc:mapping path="/cgi-bin/moment/**"/>-->
+            <!--<mvc:mapping path="/cgi-bin/pile/**"/>-->
+            <!--<bean class="com.xpg.common.auth.IpAuthorizationInterceptor" />-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+    <!--<bean class="com.xpg.common.config.SpringSwagger">-->
+        <!--<property name="springSwaggerConfig" ref="swaggerConfig1"/>-->
+        <!--<property name="patterns">-->
+            <!--<list>-->
+                <!--<value>.pile.*</value>-->
+                <!--<value>.station.*</value>-->
+                <!--<value>.key.*</value>-->
+                <!--<value>.order.*</value>-->
+                <!--<value>.user.*</value>-->
+                <!--<value>.refresh_token.*</value>-->
+                <!--<value>.evaluate.*</value>-->
+                <!--<value>.tplsendsms.*</value>-->
+                <!--<value>.favorites.*</value>-->
+                <!--<value>.push.*</value>-->
+                <!--<value>.sys/.*</value>-->
+                <!--<value>.pay/.*</value>-->
+                <!--<value>.moment/.*</value>-->
+                <!--<value>.thirds/.*</value>-->
+                <!--<value>.report/.*</value>-->
+                <!--<value>.news/.*</value>-->
+
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <bean id="swaggerConfig1" class="com.mangofactory.swagger.configuration.SpringSwaggerConfig"/>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
+
+    <!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+    <context:component-scan base-package="com.ricky.web.erp.controller"/>
+
+    <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为10MB -->
+        <property name="maxUploadSize">
+            <value>11048576</value>
+        </property>
+    </bean>
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">/404</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

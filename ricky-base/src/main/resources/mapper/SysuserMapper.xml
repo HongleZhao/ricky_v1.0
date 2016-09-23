@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ricky.base.mapper.SysuserMapper" >
+
+  <resultMap id="BaseResultMap" type="com.ricky.base.model.entity.Sysuser" >
+    <id column="id" property="id" jdbcType="INTEGEr" />
+    <result column="vName" property="name" jdbcType="VARCHAR" />
+    <result column="vUserName" property="userName" jdbcType="VARCHAR" />
+    <result column="vPassword" property="password" jdbcType="VARCHAR" />
+    <result column="iDepartmentId" property="departmentId" jdbcType="INTEGER" />
+    <result column="vDepartmentName" property="departmentName" jdbcType="VARCHAR" />
+    <result column="vTel" property="tel" jdbcType="VARCHAR" />
+    <result column="vPhone" property="phone" jdbcType="VARCHAR" />
+    <result column="vHomePhone" property="homePhone" jdbcType="VARCHAR" />
+    <result column="vEmail" property="email" jdbcType="VARCHAR" />
+    <result column="iRoleId" property="roleId" jdbcType="INTEGER" />
+    <result column="vRoleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="dLastLoginTime" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="vLoginIP" property="loginIP" jdbcType="VARCHAR" />
+    <result column="vCreater" property="creater" jdbcType="VARCHAR" />
+    <result column="dCreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="vUpdater" property="updater" jdbcType="VARCHAR" />
+    <result column="dUpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="bLocked" property="locked" jdbcType="BOOLEAN" />
+    <result column="bDel" property="del" jdbcType="BOOLEAN" />
+  </resultMap>
+
+  <!--根据登录名查询系统用户数据-->
+  <select id="selectSysuserByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      SELECT id,vName,vUserName,vPassword,iDepartmentId,vDepartmentName,iRoleId,vRoleName,bLocked,bDel
+      FROM t_base_sysuser
+      WHERE vUserName=#{value}
+  </select>
+</mapper>
