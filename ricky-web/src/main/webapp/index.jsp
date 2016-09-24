@@ -1,6 +1,6 @@
-<html>
-<body>
-<h2>Hello World!</h2>
-<h2>This is our Ricky Erp Project V1.0,Welcome!</h2>
-</body>
-</html>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    response.sendRedirect("./index");
+%>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ricky.base.mapper.RoleAuthorityMapper" >
+
+  <resultMap id="BaseResultMap" type="com.ricky.base.model.entity.RoleAuthority" >
+    <id column="id" property="id" jdbcType="LONG" />
+    <result column="iRoleId" property="roleId" jdbcType="LONG" />
+    <result column="iAuthorityId" property="authorityId" jdbcType="LONG" />
+    <result column="vAuthority" property="authority" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

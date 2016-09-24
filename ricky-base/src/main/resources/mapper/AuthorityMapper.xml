@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ricky.base.mapper.AuthorityMapper" >
+
+  <resultMap id="BaseResultMap" type="com.ricky.base.model.entity.Authority" >
+    <id column="id" property="id" jdbcType="LONG" />
+    <result column="vAuthId" property="authId" jdbcType="VARCHAR" />
+    <result column="vParentId" property="parentId" jdbcType="VARCHAR" />
+    <result column="vAuthority" property="authority" jdbcType="VARCHAR" />
+    <result column="vName" property="name" jdbcType="VARCHAR" />
+
+    <result column="vCreater" property="creater" jdbcType="VARCHAR" />
+    <result column="dCreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="vUpdater" property="updater" jdbcType="VARCHAR" />
+    <result column="dUpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="bDel" property="del" jdbcType="BOOLEAN" />
+  </resultMap>
+
+  <!--根据角色ID查询权限信息-->
+  <select id="selectAuthorityByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT a.*
+    FROM t_base_authority a,t_base_role_authority ra
+    WHERE a.id=ra.iAuthId and ra.iRoleId=#{value}
+  </select>
+  
+</mapper>

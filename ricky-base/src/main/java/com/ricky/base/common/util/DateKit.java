@@ -1,4 +1,4 @@
-package com.ricky.common.util;
+package com.ricky.base.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

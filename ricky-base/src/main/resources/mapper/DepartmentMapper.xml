@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ricky.base.mapper.DepartmentMapper" >
+
+  <resultMap id="BaseResultMap" type="com.ricky.base.model.entity.Department" >
+    <id column="id" property="id" jdbcType="LONG" />
+    <result column="vDepartmentName" property="departmentName" jdbcType="VARCHAR" />
+
+    <result column="vCreater" property="creater" jdbcType="VARCHAR" />
+    <result column="dCreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="vUpdater" property="updater" jdbcType="VARCHAR" />
+    <result column="dUpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="bDel" property="del" jdbcType="BOOLEAN" />
+  </resultMap>
+  
+</mapper>

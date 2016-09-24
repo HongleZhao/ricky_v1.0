@@ -13,7 +13,7 @@ public class Sysuser extends BaseCommonBean{
 
     @Id
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "vName")
     private String name;
@@ -25,7 +25,7 @@ public class Sysuser extends BaseCommonBean{
     private String password;
 
     @Column(name = "iDepartmentId")
-    private int deparmentId;
+    private Long deparmentId;
 
     @Column(name = "vDepartmentName")
     private String departmentName;
@@ -43,7 +43,7 @@ public class Sysuser extends BaseCommonBean{
     private String email;
 
     @Column(name = "iRoleId")
-    private int roleId;
+    private Long roleId;
 
     @Column(name = "vRoleName")
     private String roleName;
@@ -57,11 +57,11 @@ public class Sysuser extends BaseCommonBean{
     @Column(name = "bLocked")
     private boolean locked;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,13 +89,6 @@ public class Sysuser extends BaseCommonBean{
         this.password = password;
     }
 
-    public int getDeparmentId() {
-        return deparmentId;
-    }
-
-    public void setDeparmentId(int deparmentId) {
-        this.deparmentId = deparmentId;
-    }
 
     public String getDepartmentName() {
         return departmentName;
@@ -137,11 +130,19 @@ public class Sysuser extends BaseCommonBean{
         this.email = email;
     }
 
-    public int getRoleId() {
+    public Long getDeparmentId() {
+        return deparmentId;
+    }
+
+    public void setDeparmentId(Long deparmentId) {
+        this.deparmentId = deparmentId;
+    }
+
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

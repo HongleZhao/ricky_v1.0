@@ -3,17 +3,17 @@
 <mapper namespace="com.ricky.base.mapper.SysuserMapper" >
 
   <resultMap id="BaseResultMap" type="com.ricky.base.model.entity.Sysuser" >
-    <id column="id" property="id" jdbcType="INTEGEr" />
+    <id column="id" property="id" jdbcType="LONG" />
     <result column="vName" property="name" jdbcType="VARCHAR" />
     <result column="vUserName" property="userName" jdbcType="VARCHAR" />
     <result column="vPassword" property="password" jdbcType="VARCHAR" />
-    <result column="iDepartmentId" property="departmentId" jdbcType="INTEGER" />
+    <result column="iDepartmentId" property="departmentId" jdbcType="LONG" />
     <result column="vDepartmentName" property="departmentName" jdbcType="VARCHAR" />
     <result column="vTel" property="tel" jdbcType="VARCHAR" />
     <result column="vPhone" property="phone" jdbcType="VARCHAR" />
     <result column="vHomePhone" property="homePhone" jdbcType="VARCHAR" />
     <result column="vEmail" property="email" jdbcType="VARCHAR" />
-    <result column="iRoleId" property="roleId" jdbcType="INTEGER" />
+    <result column="iRoleId" property="roleId" jdbcType="LONG" />
     <result column="vRoleName" property="roleName" jdbcType="VARCHAR" />
     <result column="dLastLoginTime" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="vLoginIP" property="loginIP" jdbcType="VARCHAR" />
@@ -31,4 +31,11 @@
       FROM t_base_sysuser
       WHERE vUserName=#{value}
   </select>
+
+  <!--用户登录成功后更新时间和IP-->
+  <update id="updateSysuserLoginInfo" parameterType="com.ricky.base.model.entity.Sysuser" >
+      UPDATE t_base_sysuser
+      SET dLastLoginTiime=#{lastLoginTime},vLoginIP=#{loginIP}
+      WHERE id=#{id}
+  </update>
 </mapper>

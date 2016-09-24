@@ -9,4 +9,6 @@ import tk.mybatis.mapper.common.Mapper;
 public interface SysuserMapper extends Mapper<Sysuser> {
 
     Sysuser selectSysuserByLoginName(String loginName);
+
+    int updateSysuserLoginInfo(Sysuser user);
 }

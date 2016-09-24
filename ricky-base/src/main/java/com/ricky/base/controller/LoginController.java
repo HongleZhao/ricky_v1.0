@@ -1,13 +1,12 @@
-package com.ricky.web.erp.controller;
+package com.ricky.base.controller;
 
-import com.ricky.base.bean.BaseRespVO;
 import com.ricky.base.bean.RestRspVO;
 import com.ricky.base.emnu.ErrType;
 import com.ricky.base.mapper.SysuserMapper;
+import com.ricky.base.model.entity.Sysuser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -51,14 +51,21 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public RestRspVO<Map<String,Object>> doLogin(@RequestParam(value = "username",required = true) String username,
+    public RestRspVO<Map<String,Object>> doLogin(HttpServletRequest request,
+                                                 @RequestParam(value = "username",required = true) String username,
                                                  @RequestParam(value = "password",required = true) String password){
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
         try{
             subject.login(token);//登录验证
             //登录成功后在修改登录时间
-
+            String remoteHost = request.getHeader("X-Real-IP");
+            if (StringUtils.isBlank(remoteHost))
+                remoteHost = request.getRemoteHost();
+            Sysuser user = sysuserMapper.selectSysuserByLoginName(username);
+            user.setLastLoginTime(new Date());
+            user.setLoginIP(remoteHost);
+            sysuserMapper.updateSysuserLoginInfo(user);
             return new RestRspVO<>(ErrType.SUCCESS);
         }catch (UnknownAccountException e){
             token.clear();
